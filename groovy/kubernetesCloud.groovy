@@ -8,7 +8,7 @@ if (!Jenkins.instance.clouds.getByName('kubernetes')) {
             [],
             'https://192.168.99.100:8443',
             'usine-logicielle',
-            'http://172.17.0.7:8080',
+            'http://jenkins-master:8080',
             '10',
             0,
             0,
