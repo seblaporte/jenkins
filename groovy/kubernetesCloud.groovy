@@ -1,7 +1,5 @@
-
-import jenkins.model.Jenkins
-
-import com.nirima.jenkins.plugins.docker.KubernetesCloud
+import org.csanchez.jenkins.plugins.kubernetes.*
+import jenkins.model.*
 
 if (!Jenkins.instance.clouds.getByName('kubernetes')) {
 
@@ -10,15 +8,27 @@ if (!Jenkins.instance.clouds.getByName('kubernetes')) {
             [],
             'https://192.168.99.100:8443',
             'usine-logicielle',
-            'http://172.17.0.6:8080',
+            'http://172.17.0.7:8080',
             '10',
             0,
             0,
             0
-    )
+    );
+
+    kubernetesCloud.setSkipTlsVerify(true);
+
+    PodTemplate podTemplate = new PodTemplate();
+    podTemplate.setName('jenkins-slave');
+    podTemplate.setLabel('jenkins-slave');
+
+    ContainerTemplate containerTemplate = new ContainerTemplate('jenkins-slave', 'jenkinsci/jnlp-slave');
+    containerTemplate.setTtyEnabled(true);
+    podTemplate.setContainers([containerTemplate]);
+
+    kubernetesCloud.addTemplate(podTemplate);
 
     Jenkins.instance.clouds.add(kubernetesCloud);
-    Jenkins.instance.save()
+    Jenkins.instance.save();
 
-    println 'Configured Kubernetes cloud.'
+    println 'Configured Kubernetes cloud.';
 }
