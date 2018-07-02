@@ -6,7 +6,7 @@ if (!Jenkins.instance.clouds.getByName('kubernetes')) {
     KubernetesCloud kubernetesCloud = new KubernetesCloud(
             'kubernetes',
             [],
-            'https://192.168.99.100:8443',
+	    'https://kubernetes.default.svc.cluster.local',
             'usine-logicielle',
             'http://jenkins-master:8080',
             '10',

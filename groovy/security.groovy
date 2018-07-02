@@ -5,8 +5,8 @@ import hudson.security.*
 import jenkins.security.s2m.AdminWhitelistRule
 
 
-def user = new File("/run/secrets/jenkins-user").text.trim()
-def pass = new File("/run/secrets/jenkins-pass").text.trim()
+def user = new File("/etc/secrets/jenkins-user").text.trim()
+def pass = new File("/etc/secrets/jenkins-pass").text.trim()
 
 /**
  * Création du compte admin
